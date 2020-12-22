@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>elasticsearch-arm64v8</artifactId>
+    <version>5.4.3-SNAPSHOT</version>
+
+    <properties>
+        <docker.registry>docker.io/goafabric</docker.registry>
+        <jib-maven-plugin.version>2.6.0</jib-maven-plugin.version>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>${jib-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>docker-image-arm64v8</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                        <configuration>
+                            <from>
+                                <image>adoptopenjdk/openjdk11:aarch64-debian-jdk-11.0.9.1_1</image>
+                            </from>
+                            <to>
+                                <image>${docker.registry}/${project.artifactId}</image>
+                                <tags>
+                                    <tag>${project.version}</tag>
+                                </tags>
+                            </to>
+                            <extraDirectories>
+                                <paths>
+                                    <path>
+                                        <from>src/main/jib/elasticsearch-5.4.3</from>
+                                        <into>/elasticsearch-5.4.3</into>
+                                    </path>
+                                </paths>
+                            </extraDirectories>
+                            <container>
+                                <workingDirectory>/elasticsearch-5.4.3/bin</workingDirectory>
+                                <entrypoint>/bin/sh,./elasticsearch</entrypoint>
+                                <volumes>
+                                    <volume>/tmp</volume>
+                                    <volume>/usr/share/elasticsearch/data</volume>
+                                </volumes>
+                            </container>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
