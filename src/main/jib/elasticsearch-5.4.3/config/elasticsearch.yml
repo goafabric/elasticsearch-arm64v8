@@ -53,7 +53,7 @@
 # Set the bind address to a specific IP (IPv4 or IPv6):
 #
 network.host: 0.0.0.0
-transport.host: localhost
+#transport.host: localhost
 #
 # Set a custom port for HTTP:
 #
@@ -70,7 +70,7 @@ transport.host: localhost
 #
 # Prevent the "split brain" by configuring the majority of nodes (total number of master-eligible nodes / 2 + 1):
 #
-discovery.zen.minimum_master_nodes: 1
+#discovery.zen.minimum_master_nodes: 1
 #
 # For more information, consult the zen discovery module documentation.
 #
@@ -87,3 +87,8 @@ discovery.zen.minimum_master_nodes: 1
 # Require explicit names when deleting indices:
 #
 #action.destructive_requires_name: true
+
+cluster.name: elasticsearch
+discovery.type: single-node
+http.enabled: "true"
+transport.tcp.port: "9300"
